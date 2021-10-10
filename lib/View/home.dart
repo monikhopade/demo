@@ -17,7 +17,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   bool isLoading = true;
   List<bool> photosCheckBoxValues = [];
-  // ScrollController _scrollController = ScrollController();
   bool _hasMore=true;
   int _pageNumber=1;
   bool _error=false;
@@ -35,12 +34,9 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
   setUp()async{
-    print("setupcall");
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult == ConnectivityResult.mobile || connectivityResult == ConnectivityResult.wifi) {
-      print("calls");
       await ApiCall.photosApiCall(_pageNumber).then((value) {
-        print("Utility.photoesModelList ${Utility.photosModelList.length}");
         if (value.statusCode == 200) {
             Utility.photosModelList = PhotosModel.parseList(json.decode(value.body));
           photosCheckBoxValues.add(false);
@@ -58,13 +54,11 @@ class _MyHomePageState extends State<MyHomePage> {
       });
       _bloc = AmenitiesBloc();
       setState(() {
-        print("setstate");
         Utility.connectionCheck.value = true;
         isLoading = false;
       });
     }
     else{
-      print("in else");
       setState(() {
         Utility.connectionCheck.value = false;
       });
@@ -74,7 +68,6 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void didChangeDependencies() {
     // TODO: implement didChangeDependencies
-    print("check for this");
     if(Utility.connectionCheck.value==true) {
       setUp();
     }

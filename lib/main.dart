@@ -34,13 +34,9 @@ class MyApp extends StatelessWidget {
                           child: const Text("Please check internet connection & try again"),
                           onTap: ()async{
                             await Utility.checkNetworkConnectivity().then((value){
-                              print(value);
-                              // setState(() {
                                 Utility.connectionCheck.value = value;
                                 if(Utility.connectionCheck.value==true){
-                                  // setUp();
                                 }
-                              // });
                             });
                           },
                         )
