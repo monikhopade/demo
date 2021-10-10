@@ -1,27 +1,13 @@
-class PhotoesModelClass{
-  List<PhotosModel>? photomodel;
-
-  PhotoesModelClass({this.photomodel});
-
-  PhotoesModelClass.fromJson(List<dynamic> json){
-    photomodel = [];
-  }
-  Map<String, dynamic> toJson(){
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['photomodel'] = this.photomodel;
-    return data;
-  }
-}
-
 class PhotosModel {
   int? albumId;
-  int? id;
+  int id=0;
   String? title;
   String? url;
   String? thumbnailUrl;
+  bool checkBoxValue=false;
 
   PhotosModel(
-      {this.albumId, this.id, this.title, this.url, this.thumbnailUrl});
+      {this.albumId,required this.id,this.title, this.url,this.thumbnailUrl,required this.checkBoxValue});
 
   PhotosModel.fromJson(Map<String, dynamic> json) {
     albumId = json['albumId'];
@@ -39,5 +25,8 @@ class PhotosModel {
     data['url'] = this.url;
     data['thumbnailUrl'] = this.thumbnailUrl;
     return data;
+  }
+  static List<PhotosModel> parseList(List<dynamic> list) {
+    return list.map((i) => PhotosModel.fromJson(i)).toList();
   }
 }
